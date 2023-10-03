@@ -13,12 +13,12 @@ all: debug release
 debug: $(DEBUG_EXEC)
 
 $(DEBUG_EXEC): calculator.cpp
-	g++ $(DEBUG_FLAGS) hello.cpp -o $(DEBUG_EXEC) 
+	g++ $(DEBUG_FLAGS) calculator.cpp -o $(DEBUG_EXEC) 
 
 release: $(RELEASE_EXEC)
 
 $(RELEASE_EXEC): calculator.cpp
-	g++ $(RELEASE_FLAGS) hello.cpp -o $(RELEASE_EXEC)
+	g++ $(RELEASE_FLAGS) calculator.cpp -o $(RELEASE_EXEC)
 
 clean:
 	rm -f $(RELEASE_EXEC) $(DEBUG_EXEC)
