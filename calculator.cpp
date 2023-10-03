@@ -1,30 +1,33 @@
-#include<iostream>
-class calc
+#include <iostream>
+ 
+bool is_valid(char action)
 {
-public:
-calc()
-{
-char o;
-int a,b;
-cin>>a;
-cin>>o;
-cin>>b;
-switch(o)
-{
-case '*':
-cout<<a<<"*"<<b<<"="<<a*b;
-break;
-case '/':
-cout<<a<<"/"<<b<<"="<<a/b;
-break;
-default:
-cout<<"Enter right operator";
-break;
+    return
+        action == '*' ||
+        action == '/';
 }
-}
-};
+ 
 int main()
 {
-calc obj;
-return 0;
+    double x;
+    std::cin >> x;
+ 
+    char action;
+    std::cin >> action;
+ 
+    while (!is_valid(action))
+    {
+        std::cin >> action;
+    }
+ 
+    double y;
+    std::cin >> y;
+ 
+    double result;
+    if (action == '*')
+        result = x * y;
+    else
+        result = x / y;
+ 
+    std::cout << " " << result;
 }
