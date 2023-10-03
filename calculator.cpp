@@ -7,8 +7,12 @@ bool is_valid(char action)
         action == '/';
 }
  
-int main()
+int main(int argc, char **argv)
 {
+    if(argc == 1) { 
+        std::cout << "Мультипликативный, который вычисляет * и / " << std::endl;
+        return 0;
+        }
     double x;
     std::cin >> x;
  
