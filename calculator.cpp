@@ -1,50 +1,60 @@
+#include <getopt.h>
+#include <stdio.h>
 #include <iostream>
-#include <string>
+#include <cmath>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    if (argc < 4 || argc > 6) {
-        cout << "Мультипликативный, который делает умножение и деление" << endl;
-        cout << "Как использовать: ./calculator <m or d> <число 1> <число 2>,\n так же можно но не обязательно -> [<число 3>] [<число 4>]" << endl;
-        return 1;
+int main(int argc, char **argv) {
+    int opt;
+    
+     if(argc == 1) { 
+        cout << "Калькулятор, который выполняет умножение и деление" << endl;
+        cout << "Для опции -op есть два возможных значения: mul (умножение) и div (деление)" << endl;
+        cout << "Пример ./имя_файла -op mul 3 4" << endl;
+        return 0;
     }
-
-    string operation = argv[1];
-    double result = 1.0;
-
-    if (operation == "m") {
-        for (int i = 2; i < argc; i++) {
-            double operand = stod(argv[i]);
-            result *= operand;
+    
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    double w = 0;
+    
+    while((opt = getopt(argc, argv, "o:p:")) != -1) { 
+        switch(opt) {
+            case 'o':
+                string type = string(optarg);
+                x = atof(argv[3]);
+                y = atof(argv[4]);
+                z = atof(argv[5]);
+                w = atof(argv[6]);
+                if (type == "m") {
+                    double result = x * y * z * w;
+                    cout << "Умножение: " << result << endl;
+                }
+                else if (type == "d") {
+                    if (y!= 0) {
+                        double result = (x / y)/(z / w);
+                        cout << "Деление: " << result << endl;
+                    }
+                    else if (argc == 5) {
+                    double result = (x / y) / z;
+                    cout << result << endl;
+                    }
+                    else if (argc == 6) {
+                    double result = ((x / y) / z) / w;
+                    cout << result << endl;}
+                    else {
+                        cout << "Невозможно выполнить деление на ноль" << endl;
+                        return 0;
+                    }
+                }
+                else {
+                    cout << "Неизвестная операция" << endl;
+                    return 0;
+                }
+                break;
         }
     }
-    else if (operation == "d") {
-        if (argc == 4) {
-            double operand1 = stod(argv[2]);
-            double operand2 = stod(argv[3]);
-            result = operand1 / operand2;
-        }
-        else if (argc == 5) {
-            double operand1 = stod(argv[2]);
-            double operand2 = stod(argv[3]);
-            double operand3 = stod(argv[4]);
-            result = (operand1 / operand2) / operand3;
-        }
-        else if (argc == 6) {
-            double operand1 = stod(argv[2]);
-            double operand2 = stod(argv[3]);
-            double operand3 = stod(argv[4]);
-            double operand4 = stod(argv[5]);
-            result = ((operand1 / operand2) / operand3) / operand4;
-        }
-    }
-    else {
-        cout << "Невозможно" << endl;
-        return 1;
-    }
-
-    cout << result << endl;
-
     return 0;
 }
